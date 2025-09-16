@@ -2,7 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import trapezoid
 from optimize_Argon_dimer import lennard_Jones_potential
-
+import pandas as pd
+from writecsv import write_dict_to_csv
 
 #PV = RT(1 + B2v/V + B3v^2/V^2 + ...)
 #B2v(T) = -2πNA ∫[0 to ∞] (exp(-u(r)/kT) - 1) r^2 dr
@@ -60,6 +61,8 @@ for T in temperatures:
     for potential, name in zip(potentials, potential_names): #zip to iterate over both lists simultaneously
         B2v = B2v_function(potential, T) #calculate B2v
         B2v_values[name].append(B2v) #store the result in the dictionary
+write_dict_to_csv(temperatures, B2v_values, x_label="Temperature (K)", filename="homework_2_2.csv")
+
 # Plotting
 for name in potential_names: 
     plt.plot(temperatures, B2v_values[name], marker='o', label=name)
@@ -68,6 +71,6 @@ plt.ylabel("B2v")
 plt.title("Second Virial Coefficient vs Temperature")
 plt.legend()
 plt.grid(True)
-#plt.savefig('C:\\Users\\rcoyl\\OneDrive\\Documents\\git_hub_wexler\\chem-4050-5050\\homework_2_2\\B2v_plot.png', dpi=300)
+plt.savefig('C:\\Users\\rcoyl\\OneDrive\\Documents\\git_hub_wexler\\chem-4050-5050\\homework_2_2\\B2v_plot.png', dpi=300)
 plt.show()
 
