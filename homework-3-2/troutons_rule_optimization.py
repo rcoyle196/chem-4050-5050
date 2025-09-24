@@ -72,9 +72,10 @@ plt.text(
     bbox=dict(facecolor='white', edgecolor='black', boxstyle='round,pad=0.5')
     )
 plt.title('Troutons Rule')
-plt.xlabel('H_v jol/mol')
-plt.ylabel('T_B boiling point in kelvin')
+plt.ylabel('H_v jol/mol')
+plt.xlabel('T_B boiling point in kelvin')
 plt.grid(True)
 plt.legend()
 plt.savefig('C:\\Users\\rcoyl\\OneDrive\\Documents\\git_hub_wexler\\chem-4050-5050\\homework3_2\\Trouton_rule_optimization', dpi=300)
+
 plt.show()
