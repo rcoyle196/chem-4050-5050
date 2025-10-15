@@ -129,6 +129,7 @@ plt.legend()
 plt.savefig('C:\\Users\\rcoyl\\OneDrive\\Documents\\git_hub_wexler\\chem-4050-5050\\homework_4_2\\free_energy.png', dpi=300)
 plt.show()
 
+#Store CSV FILE
 data = {
     "Temperature (K)": T,
     "U_iso (eV)": U_iso,
