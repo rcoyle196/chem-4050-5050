@@ -1,12 +1,12 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import pandas as ps
+import pandas as pd
 from scipy.constants import k, eV
 
 # Constants
 k_B = k / eV  # Boltzmann constant in eV/K
 T = np.linspace(300, 2000, 1700)
-beta = 1/(k_B * T)
+Beta = 1/(k_B * T)
 
 #Ce3+ 
 #isolated gives
@@ -23,37 +23,49 @@ E_soc = np.array([0,.28]) #eV difference between Low and high
 g_cfs = np.array([4,2,2,4,2])
 E_cfs = np.array([0, .12, .35, .41, .42])
 
+# function to find and store values of Z
+def partition(g, E, T):
+    Z = []
+    for dt in T:
+        Beta = 1/(k_B*dt)
+        dz =  np.sum(g * np.exp(-Beta* E)) 
+        Z.append(dz)
+    return np.array(Z)
 
-# isolated system calulation
-def isolated_system(g, E, T, beta):
-    Z =  np.sum(g * np.exp(-np.outer(beta, E)), axis=1) 
-    U = -np.gradient(np.log(Z), beta) #interal energy
-    F = -k_B * T * np.log(Z) #free energy
-    S = -np.gradient(F,T) #entropy
-    return Z, U, F, S
+# function to find internal energy
+def internal_energy(Z, T):
+    U = []
+    Beta = 1/(k_B*T)
+    U = -np.gradient(np.log(Z), Beta) 
+    return U
 
-#SOC
-def SOC_system(g, E, T, beta):
-    Z = np.sum(g * np.exp(-np.outer(beta, E)), axis=1)
-    U = -np.gradient(np.log(Z), beta) 
+#function to find free energy
+def free_energy(Z, T):
     F = -k_B * T * np.log(Z)
-    S = -np.gradient(F,T)
-    return Z, U, F, S
+    return F
 
-# CFS & SOC
-def CFS_system(g, E, T, beta):
-    Z = np.sum(g * np.exp(-np.outer(beta, E)), axis=1) 
-    U = -np.gradient(np.log(Z), beta) 
-    F = -k_B * T * np.log(Z)
-    S = -np.gradient(F,T)
-    return Z, U, F, S
+# function to find entropy
+def entropy(F, T):
+    S = -np.gradient(F, T)
+    return S
 
-#unpack each function and their values (I only needed one function)
-Z_iso, U_iso, F_iso, S_iso = isolated_system(g_iso, E_iso, T, beta)
-Z_soc, U_soc, F_soc, S_soc = SOC_system(g_soc, E_soc, T, beta)
-Z_cfs, U_cfs, F_cfs, S_cfs = CFS_system(g_cfs, E_cfs, T, beta)
+# storing all the data points fround from the fucntions in different systems for CSV and graph
+Z_iso = partition(g_iso, E_iso, T)
+U_iso = internal_energy(Z_iso, T)
+F_iso = free_energy(Z_iso, T)
+S_iso = entropy(F_iso, T)
 
-#plot interal vs free energy of each system
+Z_soc = partition(g_soc, E_soc, T)
+U_soc = internal_energy(Z_soc, T)
+F_soc = free_energy(Z_soc, T)
+S_soc = entropy(F_soc, T)
+
+Z_cfs = partition(g_cfs, E_cfs, T)
+U_cfs = internal_energy(Z_cfs, T)
+F_cfs = free_energy(Z_cfs, T)
+S_cfs = entropy(F_cfs, T)
+
+#plot interal vs free energy of each system not meaningful that is why they are not saved graph just wanted to see how they reacted
 plt.plot(T, U_iso, label = 'internal energy', color = 'blue', linestyle = '--')
 plt.plot(T, F_iso, label = 'free energy', color = 'red', linestyle = '--')
 plt.xlabel('K')
@@ -85,36 +97,36 @@ plt.show()
 plt.plot(T, S_iso, label = 'entropy isolated', color = 'red')
 plt.plot(T, S_soc, label = 'entropy spin orbit cuppling', color = 'blue')
 plt.plot(T, S_cfs, label = 'entropy spin orbit and crystal feild', color = 'green')
-plt.xlabel('K')
-plt.ylabel('eV/k')
-plt.title('entropy of Ce')
+plt.xlabel('temperature in K')
+plt.ylabel('entropy in eV/k')
+plt.title('entropy of Ce in three systems')
 plt.grid(True)
 plt.legend()
-#plt.savefig('C:\\Users\\rcoyl\\OneDrive\\Documents\\git_hub_wexler\\chem-4050-5050\\homework_4_2\\entropy.png', dpi=300)
+plt.savefig('C:\\Users\\rcoyl\\OneDrive\\Documents\\git_hub_wexler\\chem-4050-5050\\homework_4_2\\entropy.png', dpi=300)
 plt.show()
 
 #plot comparision of interal energy between each system
 plt.plot(T, U_iso, label = 'interal energy isolated', color = 'red')
 plt.plot(T, U_soc, label = 'interal energy spin orbit cuppling', color = 'blue')
 plt.plot(T, U_cfs, label = 'interal energy spin orbit and crystal feild', color = 'green')
-plt.xlabel('K')
-plt.ylabel('eV')
-plt.title('interal energy of Ce')
+plt.xlabel('temperature in K')
+plt.ylabel('energy in eV')
+plt.title('interal energy of Ce in three systems')
 plt.grid(True)
 plt.legend()
-#plt.savefig('C:\\Users\\rcoyl\\OneDrive\\Documents\\git_hub_wexler\\chem-4050-5050\\homework_4_2\\internal_energy.png', dpi=300)
+plt.savefig('C:\\Users\\rcoyl\\OneDrive\\Documents\\git_hub_wexler\\chem-4050-5050\\homework_4_2\\internal_energy.png', dpi=300)
 plt.show()
 
 #plot free energy comparision between each system
 plt.plot(T, F_iso, label = 'free energy isolated', color = 'red')
 plt.plot(T, F_soc, label = 'free energy spin orbit cuppling', color = 'blue')
 plt.plot(T, F_cfs, label = 'free energy spin orbit and crystal feild', color = 'green')
-plt.xlabel('K')
-plt.ylabel('eV')
-plt.title('free energy of Ce')
+plt.xlabel('Temperature in K')
+plt.ylabel('energy in eV')
+plt.title('free energy of Ce in three systems')
 plt.grid(True)
 plt.legend()
-#plt.savefig('C:\\Users\\rcoyl\\OneDrive\\Documents\\git_hub_wexler\\chem-4050-5050\\homework_4_2\\free_energy.png', dpi=300)
+plt.savefig('C:\\Users\\rcoyl\\OneDrive\\Documents\\git_hub_wexler\\chem-4050-5050\\homework_4_2\\free_energy.png', dpi=300)
 plt.show()
 
 data = {
@@ -130,5 +142,5 @@ data = {
     "S_cfs (eV/K)": S_cfs
 }
 
-df = ps.DataFrame(data)
+df = pd.DataFrame(data)
 df.to_csv('C:\\Users\\rcoyl\\OneDrive\\Documents\\git_hub_wexler\\chem-4050-5050\\homework_4_2\\Ce_thermo.csv', index=False)
