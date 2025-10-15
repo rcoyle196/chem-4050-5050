@@ -9,8 +9,8 @@ k_B = k/eV
 
 # function for internal energy
 def internal_energy(Z, T):
-    Beta = 1/(k_B* T)
-    U = -np.gradient(np.log(Z), Beta)
+    Beta = 1/(k_B*T)
+    U = -np.gradient(np.log(Z), Beta) 
     return U
 
 # function for heat capacity

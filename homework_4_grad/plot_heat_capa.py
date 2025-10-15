@@ -16,8 +16,8 @@ Cv = heat_capa(U, T)
 
 #plot heat capacity vs temp
 plt.plot(T, Cv, label = 'heat capacity', color = 'blue')
-plt.xlabel('K')
-plt.ylabel('eV/K')
+plt.xlabel('temperature in K')
+plt.ylabel('energy over temperuature eV/K')
 plt.title('Heat Capacity vs Temperature')
 plt.grid(True)
 plt.legend()
@@ -26,23 +26,14 @@ plt.show()
 
 #plot internal energy vs temp
 plt.plot(T, U, label = 'internal energy', color = 'red')
-plt.xlabel('K')
-plt.ylabel('eV/K')
-plt.title('free energy vs temeperature')
+plt.xlabel('temperuature in K')
+plt.ylabel('energy in eV')
+plt.title('internal energy vs temeperature')
 plt.grid(True)
 plt.legend()
 plt.savefig('C:\\Users\\rcoyl\\OneDrive\\Documents\\git_hub_wexler\\chem-4050-5050\\homework_4_grad\\interal energy vs temp', dpi=300)
 plt.show()
 
-
-#debugging to try and figure out what is wrong
-print(np.isnan(Cv).sum(), np.isinf(Cv).sum())
-print(Cv[:10])
-Z = partition_function(T)
-print("Z min, max:", np.min(Z), np.max(Z))
-print("Any zeros or negatives in Z?", np.any(Z <= 0))
-print("NaNs in Z:", np.isnan(Z).sum())
-
 #generate CSV files
 pd.DataFrame({'Temperature (K)': T, 'Partition Function (Z)': Z}).to_csv('C:\\Users\\rcoyl\\OneDrive\\Documents\\git_hub_wexler\\chem-4050-5050\\homework_4_grad\\partition_function.csv', index=False)
-pd.DataFrame({'Temperature (K)': T, 'Partition Function (Z)': Z}).to_csv('C:\\Users\\rcoyl\\OneDrive\\Documents\\git_hub_wexler\\chem-4050-5050\\homework_4_grad\\inetreal energy and heat capacity.csv', index=False)
+pd.DataFrame({'Temperature (K)': T, 'Heat Capacity(eV/K)': Cv, 'internal energy(eV)': U}).to_csv('C:\\Users\\rcoyl\\OneDrive\\Documents\\git_hub_wexler\\chem-4050-5050\\homework_4_grad\\inetreal energy and heat capacity.csv', index=False)
