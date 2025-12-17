@@ -41,6 +41,7 @@ Homework submissions
 ## Project 2
 ### Polymer Chain Molecular Dynamics
 
+---
 
 All files were executed in a Microconda environment (v25.9.1) with Python.
 Important packages are NumPy, SciPy, Matplotlib, and Pandas.
