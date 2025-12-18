@@ -63,11 +63,11 @@ Unless specified otherwise, simulations used the following parameters:
 
 ### Directory Structure
 
-* **End-to-End Distance:** Plots tracking head-to-tail separation, including derivative plots ($dR_{ee}/dT$) for transition temperature identification.
-* **Potential Energy:** Total system potential energy across the thermal gradient, including derivative plots ($dU/dT$).
+* **End-to-End Distance:** Plots tracking head-to-tail separation, including derivative plots for transition temperature identification.
+* **Potential Energy:** Total system potential energy across the thermal gradient, including derivative plots.
 * **Radius of Gyration:** Plots quantifying the overall root-mean-square size and compactness of the chain.
 * **Initial Velocities:** Histograms verifying the Maxwell-Boltzmann distribution at the simulation start.
-* **Position Snapshots:** 3D visualizations of polymer conformations at $0.1T$ (Cold), $0.5T$ (Transition), and $1.0T$ (Hot).
+* **Position Snapshots:** 3D visualizations of polymer conformations at $0.1T$, $0.5T$, and $1.0T$.
 
 ### Technical Notes
 * **Units:** All measurements are reported in reduced units ($\sigma, \epsilon, \tau$).
