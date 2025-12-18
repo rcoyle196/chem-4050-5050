@@ -40,6 +40,15 @@ Homework submissions
 
 ## Project 2
 ### Polymer Chain Molecular Dynamics
+#### all paramaters are set up as k=5, epslion repusive = .25 and number of monmers = 25 unless files says otherwise
+##### end to end folder
+- has the plots for the polymer with parmaters of epsilion repulsion equal to .25, .5, and .75 along with spring constant 5, 25, and 50, and finally, the polymer chain length of 20, 25, 30, and 50, and its corespoiinding derivatives plots.
+##### Initial velocities folder
+- has the plots for the polymer with parmaters of epsilion repulsion equal to .25, .5, and .75 along with spring constant 5, 25, and 50, and finally, the polymer chain length of 20, 25, 30, and 50.
+##### radius of gyration folder
+- has the plots for the polymer with parmaters of epsilion repulsion equal to .25, .5, and .75 along with spring constant 5, 25, and 50, and finally, the polymer chain length of 20, 25, 30, and 50.
+##### potential energy folder 
+- has the plots for the polymer with parmaters of epsilion repulsion equal to .25, .5, and .75 along with spring constant 5, 25, and 50, and finally, the polymer chain length of 20, 25, 30, and 50, and its corespoinding derivatives plots
 
 ---
 
